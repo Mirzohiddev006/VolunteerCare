@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { extractError, requestsApi } from '../api'
+import { adminApi, extractError, requestsApi } from '../api'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
@@ -105,8 +105,13 @@ export default function RequestDetail() {
     setBusy(true)
     setError('')
     try {
-      await requestsApi.remove(id)
-      navigate('/requests', { replace: true })
+      if (role === 'admin') {
+        await adminApi.removeRequest(id)
+        navigate('/admin', { replace: true })
+      } else {
+        await requestsApi.remove(id)
+        navigate('/requests', { replace: true })
+      }
     } catch (err) {
       setError(extractError(err))
       setBusy(false)
@@ -116,11 +121,12 @@ export default function RequestDetail() {
   if (loading) return <Spinner />
 
   if (!item) {
+    const backTo = role === 'admin' ? '/admin' : role === 'qariya' ? '/my-requests' : '/requests'
     return (
       <div className="space-y-4">
         <Alert>{error || "So'rov topilmadi"}</Alert>
         <Link
-          to="/requests"
+          to={backTo}
           className="text-sm font-medium text-brand-700 hover:underline"
         >
           ← Ro'yxatga qaytish
@@ -139,7 +145,7 @@ export default function RequestDetail() {
   return (
     <div className="space-y-6">
       <Link
-        to={role === 'qariya' ? '/my-requests' : '/requests'}
+        to={role === 'admin' ? '/admin' : role === 'qariya' ? '/my-requests' : '/requests'}
         className="text-sm text-brand-700 hover:underline"
       >
         ← Orqaga
