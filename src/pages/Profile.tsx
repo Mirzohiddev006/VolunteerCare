@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 import StarRating from '../components/StarRating'
-import { DISTRICTS } from '../utils/format'
+import { DISTRICTS, roleLabel } from '../utils/format'
 import type { RatingSummary, User } from '../types'
 
 interface FieldProps {
@@ -119,7 +119,7 @@ export default function Profile() {
       setProfile(updated)
       updateUser(updated)
       setEditing(false)
-      setOk('Profil yangilandi')
+      setOk('Профиль обновлен')
     } catch (err) {
       setError(extractError(err))
     } finally {
@@ -146,7 +146,7 @@ export default function Profile() {
             <h1 className="text-xl font-bold text-gray-900">{u.ism || '—'}</h1>
             <div className="text-sm text-gray-500">
               <span className="rounded-full bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700">
-                {role}
+                {roleLabel(role)}
               </span>
               <span className="ml-2">{u.telefon}</span>
             </div>
@@ -156,7 +156,7 @@ export default function Profile() {
               onClick={() => setEditing(true)}
               className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              Tahrirlash
+              Редактировать
             </button>
           )}
         </div>
@@ -165,7 +165,7 @@ export default function Profile() {
           <div className="mt-5 flex items-center gap-3 rounded-xl bg-amber-50 p-4">
             <StarRating value={avg} readOnly showValue />
             <span className="text-sm text-amber-900">
-              {count > 0 ? `${count} ta baho` : "Hali baho yo'q"}
+              {count > 0 ? `${count} оценок` : 'Оценок пока нет'}
             </span>
           </div>
         )}
@@ -179,27 +179,27 @@ export default function Profile() {
           onSubmit={onSave}
           className="space-y-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100"
         >
-          <Field label="Ism">
+          <Field label="Имя">
             <input
               value={form.ism}
               onChange={setField('ism')}
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </Field>
-          <Field label="Manzil">
+          <Field label="Адрес">
             <input
               value={form.manzil}
               onChange={setField('manzil')}
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </Field>
-          <Field label="Tuman">
+          <Field label="Район">
             <select
               value={form.tuman}
               onChange={setField('tuman')}
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             >
-              <option value="">Tanlanmagan</option>
+              <option value="">Не выбрано</option>
               {DISTRICTS.map((d) => (
                 <option key={d} value={d}>
                   {d}
@@ -207,7 +207,7 @@ export default function Profile() {
               ))}
             </select>
           </Field>
-          <Field label="Bio">
+          <Field label="О себе">
             <textarea
               rows={3}
               value={form.bio}
@@ -230,31 +230,31 @@ export default function Profile() {
               }}
               className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              Bekor qilish
+              Отмена
             </button>
             <button
               type="submit"
               disabled={saving}
               className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
             >
-              {saving ? 'Saqlanmoqda...' : 'Saqlash'}
+              {saving ? 'Сохранение...' : 'Сохранить'}
             </button>
           </div>
         </form>
       ) : (
         <div className="grid gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 sm:grid-cols-2">
-          <Info label="Ism" value={u.ism} />
-          <Info label="Telefon" value={u.telefon} />
-          <Info label="Manzil" value={u.manzil} />
-          <Info label="Tuman" value={u.tuman} />
-          {u.bio && <Info label="Bio" value={u.bio} />}
+          <Info label="Имя" value={u.ism} />
+          <Info label="Телефон" value={u.telefon} />
+          <Info label="Адрес" value={u.manzil} />
+          <Info label="Район" value={u.tuman} />
+          {u.bio && <Info label="О себе" value={u.bio} />}
           {u.ortacha_baho && (
-            <Info label="O'rtacha baho" value={u.ortacha_baho} />
+            <Info label="Средняя оценка" value={u.ortacha_baho} />
           )}
           {u.created_at && (
             <Info
-              label="Ro'yxatdan o'tilgan"
-              value={new Date(u.created_at).toLocaleDateString('uz-UZ')}
+              label="Дата регистрации"
+              value={new Date(u.created_at).toLocaleDateString('ru-RU')}
             />
           )}
         </div>

@@ -34,7 +34,7 @@ export default function SendRequest() {
     setError('')
     setOk('')
     if (!form.tavsif.trim() || !form.manzil.trim()) {
-      setError("Tavsif va manzilni to'liq kiriting")
+      setError("Пожалуйста, заполните описание и адрес")
       return
     }
     setSubmitting(true)
@@ -45,7 +45,7 @@ export default function SendRequest() {
         manzil: form.manzil,
         tuman: form.tuman || undefined,
       })
-      setOk("So'rov muvaffaqiyatli yuborildi")
+      setOk("Запрос успешно отправлен")
       setTimeout(() => navigate(`/requests/${created.id}`), 600)
     } catch (err) {
       setError(extractError(err))
@@ -56,9 +56,9 @@ export default function SendRequest() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-900">Yangi so'rov yuborish</h1>
+      <h1 className="text-2xl font-bold text-gray-900">Отправить новый запрос</h1>
       <p className="mt-1 text-sm text-gray-500">
-        Sizga qaysi yordam zarurligini qisqa va aniq yozing.
+        Напишите коротко и ясно, какая помощь вам необходима.
       </p>
 
       <form
@@ -70,7 +70,7 @@ export default function SendRequest() {
 
         <div>
           <label className="mb-2 block text-sm font-medium text-gray-700">
-            Yordam turi *
+            Тип помощи *
           </label>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {REQUEST_TYPES.map((t) => (
@@ -99,13 +99,13 @@ export default function SendRequest() {
 
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700">
-            Tavsif *
+            Описание *
           </label>
           <textarea
             rows={4}
             value={form.tavsif}
             onChange={setField('tavsif')}
-            placeholder="Masalan: Yaqin dorixonadan paratsetamol va tomografiya yo'llanmasi olib kelish kerak..."
+            placeholder="Например: Нужно принести парацетамол из ближайшей аптеки и направление на томографию..."
             className="block w-full resize-none rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
         </div>
@@ -113,23 +113,23 @@ export default function SendRequest() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Manzil *
+              Адрес *
             </label>
             <input
               value={form.manzil}
               onChange={setField('manzil')}
-              placeholder="Ko'cha, uy, kvartira"
+              placeholder="Улица, дом, квартира"
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">Tuman</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Район</label>
             <select
               value={form.tuman}
               onChange={setField('tuman')}
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             >
-              <option value="">Tanlanmagan</option>
+              <option value="">Не выбрано</option>
               {DISTRICTS.map((d) => (
                 <option key={d} value={d}>
                   {d}
@@ -144,7 +144,7 @@ export default function SendRequest() {
           disabled={submitting}
           className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
         >
-          {submitting ? 'Yuborilmoqda...' : "So'rov yuborish"}
+          {submitting ? 'Отправка...' : "Отправить запрос"}
         </button>
       </form>
     </div>

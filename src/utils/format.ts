@@ -7,11 +7,11 @@ export interface RequestTypeMeta {
 }
 
 export const REQUEST_TYPES: RequestTypeMeta[] = [
-  { value: 'dori', label: 'Dori-darmon', emoji: '💊' },
-  { value: 'shifokor', label: 'Shifokor', emoji: '🩺' },
-  { value: 'dokon', label: "Do'kon / oziq-ovqat", emoji: '🛒' },
-  { value: 'suhbat', label: 'Suhbat', emoji: '💬' },
-  { value: 'boshqa', label: 'Boshqa', emoji: '📋' },
+  { value: 'dori', label: 'Лекарства', emoji: '💊' },
+  { value: 'shifokor', label: 'Врачи', emoji: '🩺' },
+  { value: 'dokon', label: 'Магазин / продукты', emoji: '🛒' },
+  { value: 'suhbat', label: 'Беседа', emoji: '💬' },
+  { value: 'boshqa', label: 'Другое', emoji: '📋' },
 ]
 
 export interface StatusMeta {
@@ -20,10 +20,10 @@ export interface StatusMeta {
 }
 
 export const REQUEST_STATUSES: Record<string, StatusMeta> = {
-  kutilmoqda: { label: 'Kutilmoqda', color: 'bg-amber-100 text-amber-800' },
-  qabul_qilindi: { label: 'Qabul qilindi', color: 'bg-sky-100 text-sky-800' },
-  bajarildi: { label: 'Bajarildi', color: 'bg-emerald-100 text-emerald-800' },
-  bekor: { label: 'Bekor qilindi', color: 'bg-gray-200 text-gray-700' },
+  kutilmoqda: { label: 'Ожидает', color: 'bg-amber-100 text-amber-800' },
+  qabul_qilindi: { label: 'Принято', color: 'bg-sky-100 text-sky-800' },
+  bajarildi: { label: 'Выполнено', color: 'bg-emerald-100 text-emerald-800' },
+  bekor: { label: 'Отменено', color: 'bg-gray-200 text-gray-700' },
 }
 
 export const requestTypeLabel = (value: RequestType | undefined): string =>
@@ -37,7 +37,7 @@ export const formatDate = (iso?: string | null): string => {
   try {
     const d = new Date(iso)
     if (Number.isNaN(d.getTime())) return ''
-    return d.toLocaleString('uz-UZ', {
+    return d.toLocaleString('ru-RU', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -53,22 +53,29 @@ export const statusBadge = (status: RequestStatus | string | undefined): StatusM
   const s = status ? REQUEST_STATUSES[status] : undefined
   if (s) return s
   return {
-    label: (status as string) || 'Noaniq',
+    label: (status as string) || 'Неопределено',
     color: 'bg-gray-100 text-gray-700',
   }
 }
 
+export const roleLabel = (role: string | undefined): string => {
+  if (role === 'qariya') return 'Пожилой человек'
+  if (role === 'voluntyor') return 'Волонтер'
+  if (role === 'admin') return 'Админ'
+  return role || ''
+}
+
 export const DISTRICTS: string[] = [
-  'Bektemir',
-  'Chilonzor',
-  'Mirobod',
-  'Mirzo Ulug`bek',
-  'Sergeli',
-  'Shayxontohur',
-  'Olmazor',
-  'Uchtepa',
-  'Yakkasaroy',
-  'Yashnobod',
-  'Yunusobod',
-  'Yangihayot',
+  'Бектемир',
+  'Чиланзар',
+  'Мирабад',
+  'Мирзо-Улугбек',
+  'Сергели',
+  'Шайхантахур',
+  'Алмазар',
+  'Учтепа',
+  'Яккасарай',
+  'Яшнабад',
+  'Юнусабад',
+  'Янгихаёт',
 ]

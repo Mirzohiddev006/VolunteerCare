@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children, roles }: ProtectedRouteProps)
   if (loading) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center text-gray-500">
-        Yuklanmoqda...
+        Загрузка...
       </div>
     )
   }
@@ -27,8 +27,8 @@ export default function ProtectedRoute({ children, roles }: ProtectedRouteProps)
   if (roles && roles.length > 0 && (!role || !roles.includes(role))) {
     return (
       <div className="mx-auto max-w-xl rounded-xl bg-red-50 p-6 text-center text-red-700">
-        <h2 className="mb-2 text-xl font-semibold">Ruxsat yo'q</h2>
-        <p>Ushbu sahifaga kirish uchun sizning roliningizda ruxsat mavjud emas.</p>
+        <h2 className="mb-2 text-xl font-semibold">Доступ запрещен</h2>
+        <p>У вас недостаточно прав для доступа к этой странице.</p>
       </div>
     )
   }

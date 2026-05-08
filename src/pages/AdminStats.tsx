@@ -124,34 +124,34 @@ export default function AdminStats() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Statistika</h1>
-        <p className="text-sm text-gray-500">Tizim ko'rsatkichlari va dinamika</p>
+        <h1 className="text-2xl font-bold text-gray-900">Статистика</h1>
+        <p className="text-sm text-gray-500">Показатели системы и динамика</p>
       </div>
 
       {error && <Alert>{error}</Alert>}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card title="Jami so'rovlar" value={totalRequests} accent="brand" />
-        <Card title="Bajarilgan" value={completed} accent="emerald" />
-        <Card title="Kutilayotgan" value={pending} accent="amber" />
-        <Card title="Foydalanuvchilar" value={totalUsers} accent="brand" />
-        <Card title="Qariyalar" value={seniors} accent="rose" />
-        <Card title="Voluntyorlar" value={volunteers} accent="emerald" />
-        <Card title="Faol voluntyorlar" value={activeVolunteers} accent="indigo" />
+        <Card title="Всего запросов" value={totalRequests} accent="brand" />
+        <Card title="Выполнено" value={completed} accent="emerald" />
+        <Card title="Ожидает" value={pending} accent="amber" />
+        <Card title="Пользователи" value={totalUsers} accent="brand" />
+        <Card title="Пожилые" value={seniors} accent="rose" />
+        <Card title="Волонтеры" value={volunteers} accent="emerald" />
+        <Card title="Активные волонтеры" value={activeVolunteers} accent="indigo" />
         <Card
-          title="O'rtacha baho"
+          title="Средняя оценка"
           value={Number(avgRating || 0).toFixed(1)}
           accent="amber"
         />
       </div>
 
       {typeEntries.length > 0 && (
-        <Section title="So'rovlar — turi bo'yicha">
+        <Section title="Запросы — по типу">
           <BarList entries={typeEntries} max={maxType} color="bg-brand-500" />
         </Section>
       )}
       {districtEntries.length > 0 && (
-        <Section title="So'rovlar — tuman bo'yicha">
+        <Section title="Запросы — по районам">
           <BarList
             entries={districtEntries}
             max={maxDistrict}

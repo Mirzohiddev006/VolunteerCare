@@ -19,11 +19,11 @@ export default function ForgotPassword() {
     e.preventDefault()
     setError('')
     setOk('')
-    if (!telefon) return setError('Telefon raqamingizni kiriting')
+    if (!telefon) return setError('Введите свой номер телефона')
     setSubmitting(true)
     try {
       await authApi.forgotPassword({ telefon })
-      setOk('Tasdiqlash kodi yuborildi. Iltimos, telefoningizni tekshiring.')
+      setOk('Код подтверждения отправлен. Пожалуйста, проверьте свой телефон.')
       setStep('reset')
     } catch (err) {
       setError(extractError(err))
@@ -36,13 +36,13 @@ export default function ForgotPassword() {
     e.preventDefault()
     setError('')
     setOk('')
-    if (!kod || !yangiParol) return setError("Barcha maydonlarni to'ldiring")
-    if (yangiParol.length < 6) return setError("Parol kamida 6 ta belgi bo'lsin")
-    if (yangiParol !== confirm) return setError('Parollar mos kelmadi')
+    if (!kod || !yangiParol) return setError('Заполните все поля')
+    if (yangiParol.length < 6) return setError('Пароль должен содержать не менее 6 символов')
+    if (yangiParol !== confirm) return setError('Пароли не совпадают')
     setSubmitting(true)
     try {
       await authApi.resetPassword({ telefon, kod, yangi_parol: yangiParol })
-      setOk('Parol muvaffaqiyatli yangilandi. Endi tizimga kira olasiz.')
+      setOk('Пароль успешно обновлен. Теперь вы можете войти в систему.')
     } catch (err) {
       setError(extractError(err))
     } finally {
@@ -53,11 +53,11 @@ export default function ForgotPassword() {
   return (
     <div className="mx-auto max-w-md">
       <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-        <h1 className="text-2xl font-bold text-gray-900">Parolni tiklash</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Восстановление пароля</h1>
         <p className="mt-1 text-sm text-gray-500">
           {step === 'request'
-            ? 'Telefoningizga SMS kod yuboramiz.'
-            : 'Telefoningizga kelgan kodni va yangi parolni kiriting.'}
+            ? 'Мы отправим SMS-код на ваш телефон.'
+            : 'Введите код, пришедший на ваш телефон, и новый пароль.'}
         </p>
 
         {step === 'request' ? (
@@ -66,7 +66,7 @@ export default function ForgotPassword() {
             {ok && <Alert kind="success">{ok}</Alert>}
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Telefon
+                Телефон
               </label>
               <input
                 type="tel"
@@ -81,7 +81,7 @@ export default function ForgotPassword() {
               disabled={submitting}
               className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
             >
-              {submitting ? 'Yuborilmoqda...' : 'Kod yuborish'}
+              {submitting ? 'Отправка...' : 'Отправить код'}
             </button>
           </form>
         ) : (
@@ -90,7 +90,7 @@ export default function ForgotPassword() {
             {ok && <Alert kind="success">{ok}</Alert>}
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Tasdiqlash kodi
+                Код подтверждения
               </label>
               <input
                 value={kod}
@@ -100,7 +100,7 @@ export default function ForgotPassword() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Yangi parol
+                Новый пароль
               </label>
               <input
                 type="password"
@@ -111,7 +111,7 @@ export default function ForgotPassword() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Parolni tasdiqlang
+                Подтвердите пароль
               </label>
               <input
                 type="password"
@@ -125,14 +125,14 @@ export default function ForgotPassword() {
               disabled={submitting}
               className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
             >
-              {submitting ? 'Yangilanmoqda...' : 'Parolni yangilash'}
+              {submitting ? 'Обновление...' : 'Обновить пароль'}
             </button>
           </form>
         )}
 
         <p className="mt-6 text-center text-sm text-gray-600">
           <Link to="/login" className="font-semibold text-brand-700 hover:underline">
-            ← Kirishga qaytish
+            ← Вернуться к входу
           </Link>
         </p>
       </div>

@@ -26,7 +26,7 @@ export default function Login() {
     e.preventDefault()
     setError('')
     if (!telefon || !parol) {
-      setError("Telefon va parolni to'liq kiriting")
+      setError('Введите номер телефона и пароль полностью')
       return
     }
     setSubmitting(true)
@@ -51,9 +51,9 @@ export default function Login() {
   return (
     <div className="mx-auto max-w-md">
       <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-        <h1 className="text-2xl font-bold text-gray-900">Kirish</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Вход</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Telefon raqam va parolingiz bilan tizimga kiring.
+          Войдите в систему, используя свой номер телефона и пароль.
         </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
@@ -61,7 +61,7 @@ export default function Login() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Telefon raqam
+              Номер телефона
             </label>
             <input
               type="tel"
@@ -75,7 +75,7 @@ export default function Login() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Parol
+              Пароль
             </label>
             <div className="relative">
               <input
@@ -90,7 +90,7 @@ export default function Login() {
                 onClick={() => setShowPwd((v) => !v)}
                 className="absolute inset-y-0 right-0 px-3 text-xs font-medium text-gray-500 hover:text-gray-700"
               >
-                {showPwd ? 'Yashir' : "Ko'rsat"}
+                {showPwd ? 'Скрыть' : 'Показать'}
               </button>
             </div>
             <div className="mt-2 text-right">
@@ -98,7 +98,7 @@ export default function Login() {
                 to="/forgot-password"
                 className="text-xs font-medium text-brand-700 hover:underline"
               >
-                Parolni unutdingizmi?
+                Забыли пароль?
               </Link>
             </div>
           </div>
@@ -108,14 +108,14 @@ export default function Login() {
             disabled={submitting}
             className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
           >
-            {submitting ? 'Kirilmoqda...' : 'Kirish'}
+            {submitting ? 'Вход...' : 'Вход'}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Akkauntingiz yo'qmi?{' '}
+          Нет аккаунта?{' '}
           <Link to="/register" className="font-semibold text-brand-700 hover:underline">
-            Ro'yxatdan o'ting
+            Зарегистрируйтесь
           </Link>
         </p>
       </div>

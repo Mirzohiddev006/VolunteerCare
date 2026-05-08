@@ -190,7 +190,7 @@ export const adminApi = {
 // Helper
 // =========================================================================
 export function extractError(err: unknown): string {
-  if (!err) return "Noma'lum xatolik"
+  if (!err) return 'Неизвестная ошибка'
   if (axios.isAxiosError(err)) {
     const data = err.response?.data as Record<string, unknown> | undefined
     if (data) {
@@ -210,7 +210,7 @@ export function extractError(err: unknown): string {
   } else if (err instanceof Error) {
     return err.message
   }
-  return "Server bilan bog'lanishda xatolik"
+  return 'Ошибка связи с сервером'
 }
 
 export default api

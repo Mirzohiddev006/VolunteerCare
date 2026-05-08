@@ -57,30 +57,30 @@ export default function RequestsList() {
     <div className="space-y-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Kutilayotgan so'rovlar</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Ожидающие запросы</h1>
           <p className="text-sm text-gray-500">
-            Yordam kerak bo'lgan keksalarning so'rovlari ro'yxati
+            Список запросов от пожилых людей, которым нужна помощь
           </p>
         </div>
         <button
           onClick={fetchList}
           className="self-start rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 sm:self-auto"
         >
-          Yangilash
+          Обновить
         </button>
       </div>
 
       <div className="grid gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:grid-cols-3">
         <div>
           <label className="mb-1 block text-xs font-medium text-gray-600">
-            Yordam turi
+            Тип помощи
           </label>
           <select
             value={turi}
             onChange={(e) => setTuri(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           >
-            <option value="">Barchasi</option>
+            <option value="">Все</option>
             {REQUEST_TYPES.map((t) => (
               <option key={t.value} value={t.value}>
                 {t.emoji} {t.label}
@@ -89,13 +89,13 @@ export default function RequestsList() {
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs font-medium text-gray-600">Tuman</label>
+          <label className="mb-1 block text-xs font-medium text-gray-600">Район</label>
           <select
             value={tuman}
             onChange={(e) => setTuman(e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           >
-            <option value="">Barchasi</option>
+            <option value="">Все</option>
             {DISTRICTS.map((d) => (
               <option key={d} value={d}>
                 {d}
@@ -104,11 +104,11 @@ export default function RequestsList() {
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs font-medium text-gray-600">Qidiruv</label>
+          <label className="mb-1 block text-xs font-medium text-gray-600">Поиск</label>
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Kalit so'z..."
+            placeholder="Ключевое слово..."
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
         </div>
@@ -120,8 +120,8 @@ export default function RequestsList() {
         <Spinner />
       ) : filtered.length === 0 ? (
         <EmptyState
-          title="So'rov topilmadi"
-          description="Hozircha kutilayotgan so'rov yo'q yoki filtr ma'lumotiga mos kelmadi."
+          title="Запросы не найдены"
+          description="Пока нет ожидающих запросов или они не соответствуют фильтрам."
         />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
@@ -159,7 +159,7 @@ export default function RequestsList() {
                 <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
                   <span>{formatDate(r.created_at)}</span>
                   <span className="font-medium text-brand-700 group-hover:underline">
-                    Batafsil →
+                    Подробнее →
                   </span>
                 </div>
               </Link>

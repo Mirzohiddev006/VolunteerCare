@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { roleLabel } from '../utils/format'
 
 const linkBase = 'rounded-lg px-3 py-2 text-sm font-medium transition-colors'
 const linkInactive = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
@@ -61,21 +62,21 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           <Item to="/" end>
-            Bosh sahifa
+            Главная
           </Item>
           {isAuthenticated && role === 'voluntyor' && (
-            <Item to="/requests">So'rovlar</Item>
+            <Item to="/requests">Запросы</Item>
           )}
           {isAuthenticated && role === 'qariya' && (
             <>
-              <Item to="/send-request">So'rov yuborish</Item>
-              <Item to="/my-requests">Mening so'rovlarim</Item>
+              <Item to="/send-request">Отправить запрос</Item>
+              <Item to="/my-requests">Мои запросы</Item>
             </>
           )}
           {isAuthenticated && role === 'admin' && (
-            <Item to="/admin">Admin panel</Item>
+            <Item to="/admin">Админ панель</Item>
           )}
-          {isAuthenticated && <Item to="/profile">Profil</Item>}
+          {isAuthenticated && <Item to="/profile">Профиль</Item>}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -85,13 +86,13 @@ export default function Navbar() {
                 to="/login"
                 className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
               >
-                Kirish
+                Вход
               </Link>
               <Link
                 to="/register"
                 className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-700"
               >
-                Ro'yxatdan o'tish
+                Регистрация
               </Link>
             </>
           ) : (
@@ -99,14 +100,14 @@ export default function Navbar() {
               <span className="hidden text-sm text-gray-600 lg:block">
                 {user?.ism || user?.telefon}
                 <span className="ml-2 rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">
-                  {role}
+                  {roleLabel(role)}
                 </span>
               </span>
               <button
                 onClick={handleLogout}
                 className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                Chiqish
+                Выход
               </button>
             </div>
           )}
@@ -114,7 +115,7 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          aria-label="Menyuni ochish"
+          aria-label="Открыть меню"
           className="md:hidden rounded-lg p-2 text-gray-700 hover:bg-gray-100"
           onClick={() => setOpen((v) => !v)}
         >
@@ -148,31 +149,31 @@ export default function Navbar() {
         <div className="border-t border-gray-200 bg-white md:hidden">
           <div className="space-y-1 px-3 py-3">
             <Item to="/" end onClick={close}>
-              Bosh sahifa
+              Главная
             </Item>
             {isAuthenticated && role === 'voluntyor' && (
               <Item to="/requests" onClick={close}>
-                So'rovlar
+                Запросы
               </Item>
             )}
             {isAuthenticated && role === 'qariya' && (
               <>
                 <Item to="/send-request" onClick={close}>
-                  So'rov yuborish
+                  Отправить запрос
                 </Item>
                 <Item to="/my-requests" onClick={close}>
-                  Mening so'rovlarim
+                  Мои запросы
                 </Item>
               </>
             )}
             {isAuthenticated && role === 'admin' && (
               <Item to="/admin" onClick={close}>
-                Admin panel
+                Админ панель
               </Item>
             )}
             {isAuthenticated && (
               <Item to="/profile" onClick={close}>
-                Profil
+                Профиль
               </Item>
             )}
             <div className="my-2 h-px bg-gray-200" />
@@ -183,27 +184,27 @@ export default function Navbar() {
                   onClick={close}
                   className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700"
                 >
-                  Kirish
+                  Вход
                 </Link>
                 <Link
                   to="/register"
                   onClick={close}
                   className="flex-1 rounded-lg bg-brand-600 px-3 py-2 text-center text-sm font-semibold text-white"
                 >
-                  Ro'yxatdan o'tish
+                  Регистрация
                 </Link>
               </div>
             ) : (
               <div className="px-3">
                 <div className="mb-2 text-sm text-gray-600">
                   {user?.ism || user?.telefon} ·{' '}
-                  <span className="font-medium text-brand-700">{role}</span>
+                  <span className="font-medium text-brand-700">{roleLabel(role)}</span>
                 </div>
                 <button
                   onClick={handleLogout}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                  Chiqish
+                  Выход
                 </button>
               </div>
             )}

@@ -44,7 +44,7 @@ export default function MyRequests() {
     e.preventDefault()
     if (!ratingFor) return
     if (!ratingFor.voluntyor) {
-      setError('Voluntyor topilmadi')
+      setError('Волонтер не найден')
       return
     }
     setSubmittingRating(true)
@@ -55,7 +55,7 @@ export default function MyRequests() {
         yulduz: stars,
         izoh: comment.trim() || undefined,
       })
-      setActionMsg('Baho muvaffaqiyatli yuborildi')
+      setActionMsg('Оценка успешно отправлена')
       setRatingFor(null)
       setStars(5)
       setComment('')
@@ -71,16 +71,16 @@ export default function MyRequests() {
     <div className="space-y-6">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Mening so'rovlarim</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Мои запросы</h1>
           <p className="text-sm text-gray-500">
-            Yuborgan so'rovlaringiz va ularning holati
+            Ваши отправленные запросы и их статус
           </p>
         </div>
         <Link
           to="/send-request"
           className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
         >
-          + Yangi so'rov
+          + Новый запрос
         </Link>
       </div>
 
@@ -91,14 +91,14 @@ export default function MyRequests() {
         <Spinner />
       ) : list.length === 0 ? (
         <EmptyState
-          title="So'rovlaringiz yo'q"
-          description="Birinchi so'rovingizni yuborib ko'ring."
+          title="У вас нет запросов"
+          description="Попробуйте отправить свой первый запрос."
           action={
             <Link
               to="/send-request"
               className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
             >
-              So'rov yuborish
+              Отправить запрос
             </Link>
           }
         />
@@ -144,7 +144,7 @@ export default function MyRequests() {
                         }}
                         className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100"
                       >
-                        ⭐ Baholash
+                        ⭐ Оценить
                       </button>
                     )}
                   </div>
@@ -162,9 +162,9 @@ export default function MyRequests() {
             onSubmit={submitRating}
             className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
           >
-            <h2 className="text-lg font-bold text-gray-900">Voluntyorni baholang</h2>
+            <h2 className="text-lg font-bold text-gray-900">Оцените волонтера</h2>
             <p className="mt-1 text-sm text-gray-500">
-              Olgan yordamingiz uchun baho qoldirib, izoh yozishingiz mumkin.
+              Вы можете оставить оценку и комментарий за полученную помощь.
             </p>
 
             <div className="mt-4 flex items-center justify-center">
@@ -175,7 +175,7 @@ export default function MyRequests() {
               rows={3}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Izoh (ixtiyoriy)..."
+              placeholder="Комментарий (необязательно)..."
               className="mt-4 block w-full resize-none rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
 
@@ -185,14 +185,14 @@ export default function MyRequests() {
                 onClick={() => setRatingFor(null)}
                 className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                Bekor qilish
+                Отмена
               </button>
               <button
                 type="submit"
                 disabled={submittingRating}
                 className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
               >
-                {submittingRating ? 'Yuborilmoqda...' : 'Bahoni yuborish'}
+                {submittingRating ? 'Отправка...' : 'Отправить оценку'}
               </button>
             </div>
           </form>

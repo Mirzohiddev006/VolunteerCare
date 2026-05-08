@@ -12,8 +12,8 @@ interface RoleOption {
 }
 
 const ROLES: RoleOption[] = [
-  { value: 'qariya', label: 'Qariya — yordam kerak' },
-  { value: 'voluntyor', label: 'Voluntyor — yordam beraman' },
+  { value: 'qariya', label: 'Пожилой человек — нужна помощь' },
+  { value: 'voluntyor', label: 'Волонтер — я помогу' },
 ]
 
 interface FormState {
@@ -52,15 +52,15 @@ export default function Register() {
     setError('')
 
     if (!form.ism.trim() || !form.telefon.trim() || !form.parol) {
-      setError("Iltimos, barcha majburiy maydonlarni to'ldiring")
+      setError('Пожалуйста, заполните все обязательные поля')
       return
     }
     if (form.parol.length < 6) {
-      setError("Parol kamida 6 ta belgi bo'lsin")
+      setError('Пароль должен содержать не менее 6 символов')
       return
     }
     if (form.parol !== form.confirm) {
-      setError('Parol va tasdiqlovchi parol mos kelmadi')
+      setError('Пароль и подтверждение пароля не совпадают')
       return
     }
 
@@ -97,9 +97,9 @@ export default function Register() {
   return (
     <div className="mx-auto max-w-lg">
       <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-        <h1 className="text-2xl font-bold text-gray-900">Ro'yxatdan o'tish</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Регистрация</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Bir necha qadam — va siz platformaga qo'shilasiz.
+          Несколько шагов — и вы присоединитесь к платформе.
         </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
@@ -107,18 +107,18 @@ export default function Register() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              To'liq ism *
+              Полное имя *
             </label>
             <input
               value={form.ism}
               onChange={setField('ism')}
-              placeholder="Ismingiz"
+              placeholder="Ваше имя"
               className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">Rol *</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Роль *</label>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {ROLES.map((r) => (
                 <label
@@ -145,7 +145,7 @@ export default function Register() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Telefon raqam *
+              Номер телефона *
             </label>
             <input
               type="tel"
@@ -158,22 +158,22 @@ export default function Register() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">Manzil</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Адрес</label>
               <input
                 value={form.manzil}
                 onChange={setField('manzil')}
-                placeholder="Ko'cha, uy raqami"
+                placeholder="Улица, номер дома"
                 className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">Tuman</label>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Район</label>
               <select
                 value={form.tuman}
                 onChange={setField('tuman')}
                 className="block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
               >
-                <option value="">Tanlanmagan</option>
+                <option value="">Не выбрано</option>
                 {DISTRICTS.map((d) => (
                   <option key={d} value={d}>
                     {d}
@@ -186,7 +186,7 @@ export default function Register() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Parol *
+                Пароль *
               </label>
               <input
                 type="password"
@@ -197,7 +197,7 @@ export default function Register() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
-                Parolni tasdiqlang *
+                Подтвердите пароль *
               </label>
               <input
                 type="password"
@@ -213,14 +213,14 @@ export default function Register() {
             disabled={submitting}
             className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
           >
-            {submitting ? 'Yaratilmoqda...' : "Ro'yxatdan o'tish"}
+            {submitting ? 'Создание...' : 'Регистрация'}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Akkauntingiz bormi?{' '}
+          У вас есть аккаунт?{' '}
           <Link to="/login" className="font-semibold text-brand-700 hover:underline">
-            Kirish
+            Вход
           </Link>
         </p>
       </div>

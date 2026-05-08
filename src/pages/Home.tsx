@@ -10,8 +10,8 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    title: 'Tezkor yordam',
-    desc: "So'rov yuboring va yaqin atrofdagi ko'ngillilar bir necha daqiqa ichida ko'rishadi.",
+    title: 'Быстрая помощь',
+    desc: 'Отправьте запрос, и волонтеры поблизости увидят его через несколько минут.',
     icon: (
       <path
         strokeLinecap="round"
@@ -22,8 +22,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: 'Ishonchli ko`ngillilar',
-    desc: "Har bir ko'ngilli tekshiriladi va boshqa qariyalar tomonidan baholanadi.",
+    title: 'Надежные волонтеры',
+    desc: 'Каждый волонтер проверяется и оценивается другими пожилыми людьми.',
     icon: (
       <path
         strokeLinecap="round"
@@ -34,8 +34,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: 'Bepul va qulay',
-    desc: 'Telefon orqali ham, web orqali ham ishlatish oson. Mutlaqo bepul.',
+    title: 'Бесплатно и удобно',
+    desc: 'Легко использовать как по телефону, так и через веб-интерфейс. Абсолютно бесплатно.',
     icon: (
       <path
         strokeLinecap="round"
@@ -53,10 +53,10 @@ interface HelpType {
 }
 
 const helpTypes: HelpType[] = [
-  { name: 'Dori-darmon', emoji: '💊' },
-  { name: 'Shifokor', emoji: '🩺' },
-  { name: "Do'kon / oziq-ovqat", emoji: '🛒' },
-  { name: 'Suhbat', emoji: '💬' },
+  { name: 'Лекарства', emoji: '💊' },
+  { name: 'Врачи', emoji: '🩺' },
+  { name: 'Магазин / продукты', emoji: '🛒' },
+  { name: 'Беседа', emoji: '💬' },
 ]
 
 export default function Home() {
@@ -75,14 +75,14 @@ export default function Home() {
         <div className="relative mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-wider">
             <span className="h-2 w-2 rounded-full bg-emerald-300" />
-            Hamiyat — bu eng katta foyda
+            Милосердие — это величайшее благо
           </span>
           <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl">
-            Keksa yoshdagilarga ko'ngilli yordam platformasi
+            Платформа волонтерской помощи пожилым людям
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/90">
-            Dori olib kelishdan tortib, oddiy suhbatlashguncha — VolunteerCare
-            qariyalarni yaqinda turgan ko'ngilli bilan bog'laydi.
+            От доставки лекарств до простого общения — VolunteerCare связывает
+            пожилых людей с волонтерами поблизости.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             {!isAuthenticated ? (
@@ -91,13 +91,13 @@ export default function Home() {
                   to="/register"
                   className="rounded-xl bg-white px-6 py-3 text-base font-semibold text-brand-700 shadow-lg shadow-black/10 transition hover:scale-105"
                 >
-                  Hozir boshlash
+                  Начать сейчас
                 </Link>
                 <Link
                   to="/login"
                   className="rounded-xl border border-white/40 px-6 py-3 text-base font-semibold text-white hover:bg-white/10"
                 >
-                  Akkauntim bor
+                  У меня есть аккаунт
                 </Link>
               </>
             ) : (
@@ -111,7 +111,7 @@ export default function Home() {
                 }
                 className="rounded-xl bg-white px-6 py-3 text-base font-semibold text-brand-700 shadow-lg hover:scale-105"
               >
-                Davom etish
+                Продолжить
               </Link>
             )}
           </div>
@@ -121,7 +121,7 @@ export default function Home() {
       {/* Yordam turlari */}
       <section className="mx-auto max-w-5xl px-2">
         <h2 className="text-center text-2xl font-bold text-gray-900 sm:text-3xl">
-          Qanday yordam berishimiz mumkin?
+          Чем мы можем помочь?
         </h2>
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {helpTypes.map((t) => (
@@ -139,7 +139,7 @@ export default function Home() {
       {/* Features */}
       <section className="mx-auto max-w-5xl px-2">
         <h2 className="text-center text-2xl font-bold text-gray-900 sm:text-3xl">
-          Nima uchun aynan VolunteerCare?
+          Почему именно VolunteerCare?
         </h2>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {features.map((f) => (
@@ -168,17 +168,17 @@ export default function Home() {
       {!isAuthenticated && (
         <section className="rounded-3xl bg-gray-900 px-6 py-12 text-center text-white sm:px-12">
           <h2 className="text-2xl font-bold sm:text-3xl">
-            Bugun yordam berishni boshlang
+            Начните помогать сегодня
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-300">
-            Bir necha daqiqada ro'yxatdan o'ting va sizga yaqin keksalarga
-            qo'lingizdan kelgan yaxshilikni ulashing.
+            Зарегистрируйтесь за несколько минут и поделитесь добром с пожилыми
+            людьми рядом с вами.
           </p>
           <Link
             to="/register"
             className="mt-6 inline-block rounded-xl bg-brand-500 px-6 py-3 text-base font-semibold hover:bg-brand-400"
           >
-            Ro'yxatdan o'tish
+            Регистрация
           </Link>
         </section>
       )}

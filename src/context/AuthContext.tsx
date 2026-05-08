@@ -67,11 +67,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = useCallback(async (creds: LoginPayload): Promise<User> => {
     const data = await authApi.login(creds)
     const token = data?.access || data?.token || data?.accessToken
-    if (!token) throw new Error('Token kelmadi')
+    if (!token) throw new Error('Токен не получен')
     localStorage.setItem(TOKEN_KEY, token)
     if (data?.refresh) localStorage.setItem(REFRESH_KEY, data.refresh)
     const fresh = await authApi.me()
-    if (!fresh) throw new Error("Foydalanuvchi ma'lumotlari kelmadi")
+    if (!fresh) throw new Error("Данные пользователя не получены")
     setUser(fresh)
     localStorage.setItem(USER_KEY, JSON.stringify(fresh))
     return fresh
@@ -134,6 +134,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth AuthProvider ichida ishlatilishi kerak')
+  if (!ctx) throw new Error('useAuth должен использоваться внутри AuthProvider')
   return ctx
+}
+return ctx
 }

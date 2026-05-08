@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "VolunteerCare — Keksa yoshdagilarga ko'ngilli yordam platformasi",
+  "description": "VolunteerCare — Платформа волонтерской помощи пожилым людям",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -7,7 +7,7 @@ interface EmptyStateProps {
 }
 
 export default function EmptyState({
-  title = 'Hech narsa topilmadi',
+  title = 'Ничего не найдено',
   description,
   action,
 }: EmptyStateProps) {

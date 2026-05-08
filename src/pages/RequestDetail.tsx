@@ -62,7 +62,7 @@ export default function RequestDetail() {
     setActionMsg('')
     try {
       await requestsApi.accept(id)
-      setActionMsg("So'rov qabul qilindi. Iltimos, qariya bilan bog'laning.")
+      setActionMsg("Запрос принят. Пожалуйста, свяжитесь с пожилым человеком.")
       await load()
     } catch (err) {
       setError(extractError(err))
@@ -72,13 +72,13 @@ export default function RequestDetail() {
   }
 
   const onComplete = async () => {
-    if (!confirm("So'rovni 'Bajarildi' deb belgilashni tasdiqlaysizmi?")) return
+    if (!confirm("Вы подтверждаете, что запрос 'Выполнен'?")) return
     setBusy(true)
     setError('')
     setActionMsg('')
     try {
       await requestsApi.complete(id)
-      setActionMsg("So'rov bajarildi deb belgilandi. Rahmat!")
+      setActionMsg("Запрос отмечен как выполненный. Спасибо!")
       await load()
     } catch (err) {
       setError(extractError(err))
@@ -88,7 +88,7 @@ export default function RequestDetail() {
   }
 
   const onCancel = async () => {
-    if (!confirm("So'rovni bekor qilishni xohlaysizmi?")) return
+    if (!confirm("Вы хотите отменить запрос?")) return
     setBusy(true)
     setError('')
     try {
@@ -101,7 +101,7 @@ export default function RequestDetail() {
   }
 
   const onDelete = async () => {
-    if (!confirm("So'rovni o'chirishni xohlaysizmi? Bu amal qaytarilmaydi.")) return
+    if (!confirm("Вы хотите удалить запрос? Это действие необратимо.")) return
     setBusy(true)
     setError('')
     try {
@@ -124,12 +124,12 @@ export default function RequestDetail() {
     const backTo = role === 'admin' ? '/admin' : role === 'qariya' ? '/my-requests' : '/requests'
     return (
       <div className="space-y-4">
-        <Alert>{error || "So'rov topilmadi"}</Alert>
+        <Alert>{error || "Запрос не найден"}</Alert>
         <Link
           to={backTo}
           className="text-sm font-medium text-brand-700 hover:underline"
         >
-          ← Ro'yxatga qaytish
+          ← Вернуться к списку
         </Link>
       </div>
     )
@@ -148,7 +148,7 @@ export default function RequestDetail() {
         to={role === 'admin' ? '/admin' : role === 'qariya' ? '/my-requests' : '/requests'}
         className="text-sm text-brand-700 hover:underline"
       >
-        ← Orqaga
+        ← Назад
       </Link>
 
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
@@ -177,7 +177,7 @@ export default function RequestDetail() {
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-              Tavsif
+              Описание
             </h3>
             <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
               {item.tavsif || '—'}
@@ -185,14 +185,14 @@ export default function RequestDetail() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <InfoRow label="Manzil" value={item.manzil || '—'} />
-            <InfoRow label="Tuman" value={item.tuman || '—'} />
+            <InfoRow label="Адрес" value={item.manzil || '—'} />
+            <InfoRow label="Район" value={item.tuman || '—'} />
           </div>
 
           {qariya && (
             <div className="rounded-xl bg-gray-50 p-4">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Qariya
+                Пожилой человек
               </h3>
               <div className="mt-2 flex flex-col gap-1 text-sm text-gray-800">
                 <div className="font-semibold">{qariya.ism || '—'}</div>
@@ -212,7 +212,7 @@ export default function RequestDetail() {
           {voluntyor && (
             <div className="rounded-xl bg-emerald-50 p-4">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
-                Voluntyor
+                Волонтер
               </h3>
               <div className="mt-2 flex flex-col gap-1 text-sm text-emerald-900">
                 <div className="font-semibold">{voluntyor.ism || '—'}</div>
@@ -226,7 +226,7 @@ export default function RequestDetail() {
           {item.baho && (
             <div className="rounded-xl bg-amber-50 p-4">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-amber-700">
-                Baho
+                Оценка
               </h3>
               <p className="mt-1 text-sm text-amber-900">{item.baho}</p>
             </div>
@@ -239,7 +239,7 @@ export default function RequestDetail() {
                 onClick={onAccept}
                 className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
               >
-                Qabul qildim
+                Принять
               </button>
             )}
             {role === 'voluntyor' &&
@@ -250,7 +250,7 @@ export default function RequestDetail() {
                   onClick={onComplete}
                   className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
                 >
-                  Bajarildi deb belgilash
+                  Отметить как выполненный
                 </button>
               )}
             {role === 'qariya' && isOwner && holati === 'kutilmoqda' && (
@@ -259,7 +259,7 @@ export default function RequestDetail() {
                 onClick={onCancel}
                 className="rounded-lg border border-amber-200 bg-white px-4 py-2 text-sm font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-60"
               >
-                Bekor qilish
+                Отменить
               </button>
             )}
             {role === 'admin' && (
@@ -268,7 +268,7 @@ export default function RequestDetail() {
                 onClick={onDelete}
                 className="rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50 disabled:opacity-60"
               >
-                O'chirish
+                Удалить
               </button>
             )}
           </div>
