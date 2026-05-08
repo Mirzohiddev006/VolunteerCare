@@ -58,7 +58,7 @@ export const statusBadge = (status: RequestStatus | string | undefined): StatusM
   }
 }
 
-export const roleLabel = (role: string | undefined): string => {
+export const roleLabel = (role: string | null | undefined): string => {
   if (role === 'qariya') return 'Пожилой человек'
   if (role === 'voluntyor') return 'Волонтер'
   if (role === 'admin') return 'Админ'

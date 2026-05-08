@@ -137,5 +137,3 @@ export function useAuth(): AuthContextValue {
   if (!ctx) throw new Error('useAuth должен использоваться внутри AuthProvider')
   return ctx
 }
-return ctx
-}
