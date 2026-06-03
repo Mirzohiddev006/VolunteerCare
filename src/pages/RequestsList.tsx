@@ -26,7 +26,7 @@ export default function RequestsList() {
     setLoading(true)
     setError('')
     try {
-      const params: RequestListParams = {}
+      const params: RequestListParams = { holati: 'kutilmoqda' }
       if (turi) params.turi = turi
       if (tuman) params.tuman = tuman
       const data = await requestsApi.list(params)
