@@ -54,11 +54,19 @@ api.interceptors.response.use(
 )
 
 function unwrap<T>(res: AxiosResponse<unknown>): T {
-  const body = res?.data as Record<string, unknown> | T | undefined
-  if (body && typeof body === 'object' && !Array.isArray(body)) {
+  let body = res?.data as unknown
+  // Peel common envelopes (DRF pagination / { success, data } wrappers),
+  // including nested cases like { data: { results: [...] } }.
+  for (let i = 0; i < 3; i++) {
+    if (!body || typeof body !== 'object' || Array.isArray(body)) break
     const obj = body as Record<string, unknown>
-    if ('data' in obj) return obj.data as T
-    if ('results' in obj) return obj.results as T
+    if ('data' in obj) {
+      body = obj.data
+    } else if ('results' in obj) {
+      body = obj.results
+    } else {
+      break
+    }
   }
   return body as T
 }

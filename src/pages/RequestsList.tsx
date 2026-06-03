@@ -26,7 +26,7 @@ export default function RequestsList() {
     setLoading(true)
     setError('')
     try {
-      const params: RequestListParams = {}
+      const params: RequestListParams = { holati: 'kutilmoqda' }
       if (turi) params.turi = turi
       if (tuman) params.tuman = tuman
       const data = await requestsApi.list(params)
@@ -44,9 +44,12 @@ export default function RequestsList() {
   }, [turi, tuman])
 
   const filtered = useMemo<HelpRequest[]>(() => {
-    if (!search.trim()) return list
+    // Keep only pending requests even if the backend ignores the `holati`
+    // query filter and returns requests in other states.
+    const pending = list.filter((r) => !r.holati || r.holati === 'kutilmoqda')
+    if (!search.trim()) return pending
     const q = search.trim().toLowerCase()
-    return list.filter((r) =>
+    return pending.filter((r) =>
       [r.tavsif, r.manzil, r.tuman]
         .filter((v): v is string => Boolean(v))
         .some((s) => s.toLowerCase().includes(q))
